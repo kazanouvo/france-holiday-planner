@@ -72,3 +72,8 @@ logs/
 *.sqlite3
 
 trips.json
+# Dependencies
+frontend/node_modules
+/node_modules
+/.vscode
+.DS_Store
