@@ -1,25 +1,35 @@
 import React from "react";
 
-export default function Post({ post }: { post: { title: string; content: string[]; author: string; date: string; tags: string[] } }) {
+function Post({ post }: { post: { title: string; content: string[]; author: string; date: string; tags: string[] } }) {
   return (
-    <main className="min-h-screen" style={{fontFamily:"Inter,system-ui,sans-serif",background:"#f5f7fb",color:"#18212f"}}>
-      <header style={{background:"linear-gradient(135deg,#315efb,#6d4aff)",color:"#fff",padding:"34px 20px"}}>
-        <div style={{maxWidth:720,margin:"auto"}}>
-          <a href="/blog" style={{color:"rgba(255,255,255,.7)",textDecoration:"none",fontSize:13}}← Back to Blog</a>
-          <h1 style={{margin:"12px 0 6px 0",fontSize:34}}>{post.title}</h1>
-          <div style={{opacity:0.9,fontSize:14}}>{post.author} · {post.date}</div>
-          <div style={{marginTop:8}}>
-            {post.tags.map(t => <span key={t} style={{background:"rgba(255,255,255,.2)",padding:"3px 9px",borderRadius:12,fontSize:11,marginRight:6}}#{t}</span>)}
+    <>
+      <main className="min-h-screen" style={{fontFamily:"Inter,system-ui,sans-serif",background:"#f5f7fb",color:"#18212f"}}>
+        <header style={{background:"linear-gradient(135deg,#315efb,#6d4aff)",color:"#fff",padding:"34px 20px"}}>
+          <div style={{maxWidth:720,margin:"auto"}}>
+            <a href="/blog" style={{color:"rgba(255,255,255,.7)",textDecoration:"none",fontSize:13}}>← Back to Blog</a>
+            <h1 style={{margin:"12px 0 6px 0",fontSize:34}}>{post.title}</h1>
+            <div style={{opacity:0.9,fontSize:14}}>{post.author} · {post.date}</div>
+            <div style={{marginTop:8}}>
+              {post.tags.map(t => <span key={t} style={{background:"rgba(255,255,255,.2)",padding:"3px 9px",borderRadius:12,fontSize:11,marginRight:6}}>{"#"}{t}</span>)}
+            </div>
           </div>
-        </div>
-      </header>
-      <article style={{maxWidth:720,margin:"auto",padding:"40px 18px 60px"}}>
-        {post.content.map((paragraph, i) => (
-          <p key={i} style={{lineHeight:1.8,marginBottom:16,fontSize:16}}>{paragraph}</p>
-        ))}
-      </article>
-    </main>
+        </header>
+        <article style={{maxWidth:720,margin:"auto",padding:"40px 18px 60px"}}>
+          {post.content.map((paragraph, i) => (
+            <p key={i} style={{lineHeight:1.8,marginBottom:16,fontSize:16}}>{paragraph}</p>
+          ))}
+        </article>
+      </main>
+    </>
   );
+}
+
+export default Post;
+
+export async function getStaticProps({ params }: { params: { slug: string } }) {
+  const post = posts[params.slug];
+  if (!post) return { notFound: true };
+  return { props: { post } };
 }
 
 export async function getStaticPaths() {
@@ -113,11 +123,3 @@ const posts: Record<string, any> = {
     "Pro tip: E85 (bioethanol) is €0.69/L in summer 2026 vs €1.73/L for SP95. If your Peugeot 308 is E85-compatible (check the fuel cap badge), you're looking at 60% savings. The 'Essence-E85' app lists all E85 pumps.",
   ]},
 };
-
-export async function getStaticProps({ params }: { params: { slug: string } }) {
-  const post = posts[params.slug];
-  if (!post) return { notFound: true };
-  return { props: { post } };
-}
-
-export default Post;
