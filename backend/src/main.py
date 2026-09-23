@@ -192,6 +192,8 @@ def choose_transport(options: List[Dict[str, Any]], requested: str) -> Dict[str,
 
 
 def optimize_stop_order(stops: List[str]) -> List[str]:
+    if not stops:
+        return []
     if len(stops) <= 8:
         best_order: Optional[List[str]] = None
         best_distance = float("inf")
@@ -299,7 +301,9 @@ def add_expense(trip_id: str, expense: Expense) -> Dict[str, Any]:
     data = load_trips()
     for trip in data["trips"]:
         if str(trip["id"]) == str(trip_id):
-            result = {"id": len(trip.get("expenses", [])) + 1, **expense.model_dump()}
+            existing_expenses = trip.get("expenses", [])
+            next_id = max((int(e.get("id", 0)) for e in existing_expenses), default=0) + 1
+            result = {"id": next_id, **expense.model_dump()}
             trip.setdefault("expenses", []).append(result)
             save_trips(data)
             return result
@@ -332,6 +336,14 @@ def get_trip_summary(trip_id: str) -> Dict[str, Any]:
             total_spent = sum(float(expense.get("amount", 0)) for expense in expenses)
             budget = trip.get("budget")
             remaining = float(budget) - total_spent if budget is not None else None
+            if remaining is None:
+                status = "no_budget"
+            elif remaining < 0:
+                status = "over_budget"
+            elif remaining == 0:
+                status = "on_budget"
+            else:
+                status = "under_budget"
             return {
                 "trip_id": trip_id,
                 "title": trip["title"],
@@ -339,7 +351,7 @@ def get_trip_summary(trip_id: str) -> Dict[str, Any]:
                 "total_spent": round(total_spent, 2),
                 "budget_remaining": round(remaining, 2) if remaining is not None else None,
                 "expense_count": len(expenses),
-                "budget_status": "over_budget" if remaining is not None and remaining < 0 else "under_budget",
+                "budget_status": status,
             }
     raise HTTPException(status_code=404, detail="Trip not found")
 
