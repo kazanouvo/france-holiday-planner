@@ -76,9 +76,7 @@ trips.json
 frontend/node_modules
 /node_modules
 /.vscode
-.DS_Store
 frontend-copy/
 .pytest_cache/
 .venv/
 frontend/.next/
-frontend-copy/
