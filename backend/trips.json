@@ -41,6 +41,174 @@
           "amount": 30.0
         }
       ]
+    },
+    {
+      "id": 4,
+      "title": "Trip 1",
+      "dates": "1 Jan",
+      "currency": "EUR",
+      "budget": 100.0,
+      "stops": [],
+      "expenses": []
+    },
+    {
+      "id": 5,
+      "title": "Trip 2",
+      "dates": "2 Jan",
+      "currency": "EUR",
+      "budget": 200.0,
+      "stops": [],
+      "expenses": []
+    },
+    {
+      "id": 6,
+      "title": "Expense Test Trip",
+      "dates": "1 Jan",
+      "currency": "EUR",
+      "budget": 100.0,
+      "stops": [],
+      "expenses": [
+        {
+          "id": 1,
+          "category": "Food",
+          "item": "Meal",
+          "date": "",
+          "amount": 50.0
+        },
+        {
+          "id": 2,
+          "category": "Transport",
+          "item": "Taxi",
+          "date": "",
+          "amount": 30.0
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Trip 1",
+      "dates": "1 Jan",
+      "currency": "EUR",
+      "budget": 100.0,
+      "stops": [],
+      "expenses": []
+    },
+    {
+      "id": 8,
+      "title": "Trip 2",
+      "dates": "2 Jan",
+      "currency": "EUR",
+      "budget": 200.0,
+      "stops": [],
+      "expenses": []
+    },
+    {
+      "id": 9,
+      "title": "Expense Test Trip",
+      "dates": "1 Jan",
+      "currency": "EUR",
+      "budget": 100.0,
+      "stops": [],
+      "expenses": [
+        {
+          "id": 1,
+          "category": "Food",
+          "item": "Meal",
+          "date": "",
+          "amount": 50.0
+        },
+        {
+          "id": 2,
+          "category": "Transport",
+          "item": "Taxi",
+          "date": "",
+          "amount": 30.0
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Trip 1",
+      "dates": "1 Jan",
+      "currency": "EUR",
+      "budget": 100.0,
+      "stops": [],
+      "expenses": []
+    },
+    {
+      "id": 11,
+      "title": "Trip 2",
+      "dates": "2 Jan",
+      "currency": "EUR",
+      "budget": 200.0,
+      "stops": [],
+      "expenses": []
+    },
+    {
+      "id": 12,
+      "title": "Expense Test Trip",
+      "dates": "1 Jan",
+      "currency": "EUR",
+      "budget": 100.0,
+      "stops": [],
+      "expenses": [
+        {
+          "id": 1,
+          "category": "Food",
+          "item": "Meal",
+          "date": "",
+          "amount": 50.0
+        },
+        {
+          "id": 2,
+          "category": "Transport",
+          "item": "Taxi",
+          "date": "",
+          "amount": 30.0
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "title": "Trip 1",
+      "dates": "1 Jan",
+      "currency": "EUR",
+      "budget": 100.0,
+      "stops": [],
+      "expenses": []
+    },
+    {
+      "id": 14,
+      "title": "Trip 2",
+      "dates": "2 Jan",
+      "currency": "EUR",
+      "budget": 200.0,
+      "stops": [],
+      "expenses": []
+    },
+    {
+      "id": 15,
+      "title": "Expense Test Trip",
+      "dates": "1 Jan",
+      "currency": "EUR",
+      "budget": 100.0,
+      "stops": [],
+      "expenses": [
+        {
+          "id": 1,
+          "category": "Food",
+          "item": "Meal",
+          "date": "",
+          "amount": 50.0
+        },
+        {
+          "id": 2,
+          "category": "Transport",
+          "item": "Taxi",
+          "date": "",
+          "amount": 30.0
+        }
+      ]
     }
   ]
 }
