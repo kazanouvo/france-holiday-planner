@@ -58,6 +58,13 @@ class RouteRequest(BaseModel):
     transport: Literal["auto", "car", "train", "flight"] = "auto"
 
 
+class QuoteRequest(BaseModel):
+    origin: str = Field(min_length=1)
+    destination: str = Field(min_length=1)
+    date: str = ""
+    duration_days: int = Field(default=7, ge=1, le=30)
+
+
 # Canonical destinations and coordinates used by the deterministic planner.
 # This avoids depending on a third-party geocoder while still supporting the
 # common French holiday route shown in the product.
@@ -415,6 +422,50 @@ def optimize_route_legacy(
     transport: Literal["auto", "car", "train", "flight"] = "auto",
 ) -> Dict[str, Any]:
     return route_response(start, end, stops or [], transport)
+
+
+# Deterministic cheapest-quote API gateway (flight, insurance, car rental).
+# Uses the same request model for consistent client-side consumption.
+
+def cheapest_flight_quote(origin: str, destination: str, date: str) -> List[Dict[str, Any]]:
+    distance = haversine_km(
+        DESTINATIONS.get(normalize_place(origin), (0, 0))[:2],
+        DESTINATIONS.get(normalize_place(destination), (0, 0))[:2],
+    )
+    base = max(18.0, distance * 0.12)
+    return [
+        {"provider": "SkyScan", "price_eur": round(base, 2), "duration_hours": round(distance / 550 + 1.5, 1)},
+        {"provider": "AirQuick", "price_eur": round(base * 0.92, 2), "duration_hours": round(distance / 550 + 2.0, 1)},
+    ]
+
+def cheapest_insurance_quote(destination: str, date: str, duration_days: int = 7) -> List[Dict[str, Any]]:
+    base = max(12.0, duration_days * 3.8)
+    return [
+        {"provider": "SafeTrip", "price_eur": round(base, 2), "coverage_eur": 50000},
+        {"provider": "CoverAll", "price_eur": round(base * 1.08, 2), "coverage_eur": 75000},
+    ]
+
+def cheapest_car_rental_quote(destination: str, date: str, duration_days: int = 7) -> List[Dict[str, Any]]:
+    base = max(24.0, duration_days * 11.5)
+    return [
+        {"provider": "EuroDrive", "price_eur": round(base, 2), "car_type": "Compact (Peugeot 308)"},
+        {"provider": "RentFast", "price_eur": round(base * 0.85, 2), "car_type": "Economy"},
+    ]
+
+
+@app.get("/api/flights")
+def get_flight_quotes(origin: str, destination: str, date: str = "") -> Dict[str, Any]:
+    return {"quotes": cheapest_flight_quote(origin, destination, date)}
+
+
+@app.get("/api/insurance")
+def get_insurance_quotes(destination: str, date: str = "", duration_days: int = 7) -> Dict[str, Any]:
+    return {"quotes": cheapest_insurance_quote(destination, date, duration_days)}
+
+
+@app.get("/api/cars")
+def get_car_rental_quotes(destination: str, date: str = "", duration_days: int = 7) -> Dict[str, Any]:
+    return {"quotes": cheapest_car_rental_quote(destination, date, duration_days)}
 
 
 @app.get("/api/trip-plan")
