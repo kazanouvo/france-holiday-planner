@@ -210,21 +210,23 @@ export default function Home() {
   return (
     <main className="min-h-screen" style={{ fontFamily: "Inter,system-ui,sans-serif", background: "#f5f7fb", color: "#18212f" }}>
       <header style={{background:"linear-gradient(135deg,#315efb,#6d4aff)",color:"#fff",padding:"34px 20px"}}>
-                      <div style={{maxWidth:1100,margin:"auto",paddingBottom:8}}>
-                        <h1 style={{margin:0,fontSize:32}}>🇫🇷 France Holiday Planner</h1>
-                        <div style={{opacity:0.9}}>{trip.dates} · Budget in {trip.currency}</div>
-                        <nav style={{marginTop:10,display:"flex",flexWrap:"wrap",gap:14,fontSize:13,fontWeight:600}}>
-                          <a href="/" style={{color:"#fff",textDecoration:"underline",opacity:0.9}}>Home</a>
-                          <a href="/about" style={{color:"#fff",textDecoration:"underline",opacity:0.9}}>About</a>
-                          <a href="/contact" style={{color:"#fff",textDecoration:"underline",opacity:0.9}}>Contact</a>
-                          <a href="/faq" style={{color:"#fff",textDecoration:"underline",opacity:0.9}}>FAQ</a>
-                          <a href="/destinations" style={{color:"#fff",textDecoration:"underline",opacity:0.9}}>Destinations</a>
-                          <a href="/blog" style={{color:"#fff",textDecoration:"underline",opacity:0.9}}>Blog</a>
-                          <a href="/terms" style={{color:"#fff",textDecoration:"underline",opacity:0.9}}>Terms</a>
-                          <a href="/privacy" style={{color:"#fff",textDecoration:"underline",opacity:0.9}}>Privacy</a>
-                        </nav>
-                      </div>
-                    </header>
+              <div style={{maxWidth:1100,margin:"auto",paddingBottom:8}}>
+                <h1 style={{margin:0,fontSize:32}}>🇫🇷 France Holiday Planner</h1>
+                <div style={{opacity:0.9}}>{trip.dates} · Budget in {trip.currency}</div>
+                <nav style={{marginTop:10,display:"flex",flexWrap:"wrap",gap:14,fontSize:13,fontWeight:600}}>
+                  <a href="/" style={{color:"#fff",textDecoration:"underline",opacity:0.9}}>Home</a>
+                  <a href="/landing" style={{color:"#fff",textDecoration:"underline",opacity:0.9}}>Landing</a>
+                  <a href="/about" style={{color:"#fff",textDecoration:"underline",opacity:0.9}}>About</a>
+                  <a href="/contact" style={{color:"#fff",textDecoration:"underline",opacity:0.9}}>Contact</a>
+                  <a href="/faq" style={{color:"#fff",textDecoration:"underline",opacity:0.9}}>FAQ</a>
+                  <a href="/destinations" style={{color:"#fff",textDecoration:"underline",opacity:0.9}}>Destinations</a>
+                  <a href="/blog" style={{color:"#fff",textDecoration:"underline",opacity:0.9}}>Blog</a>
+                  <a href="/terms" style={{color:"#fff",textDecoration:"underline",opacity:0.9}}>Terms</a>
+                  <a href="/privacy" style={{color:"#fff",textDecoration:"underline",opacity:0.9}}>Privacy</a>
+                  <a href="/login" style={{color:"#fff",textDecoration:"underline",opacity:0.9}}>Login</a>
+                </nav>
+              </div>
+            </header>
       <div style={{ maxWidth: 1100, margin: "auto", padding: "22px 18px 50px" }}>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 14, marginTop: -12 }}>
           <div style={cardS}><div style={labelS}>Listed expenses</div><div style={statS}>{eur(total)}</div></div>
